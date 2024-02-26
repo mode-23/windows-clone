@@ -1,0 +1,82 @@
+.fileExplorerHeader{
+     background-color: var(--main-color);
+    background-color: rgba(0, 0, 0, .2);
+     padding: 10px 6px;
+     display: flex;
+     align-items: center;
+}
+.fileExplorerHeader img{
+     width: 72%;
+     /* filter: grayscale(100%); */
+}
+.fileExplorerHeader_box_holder{
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     border-right: 1px solid rgba(255, 255, 255, .1);
+     padding-right: 10px;
+}
+.fileExplorerHeader_box_holder:not(:first-child){
+     padding-left: 10px;
+}
+.fileExplorerHeader_box{
+     padding: 10px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     gap: 6px;
+     cursor: pointer;
+     width: 100px;
+}
+.fileExplorerHeader_box.active img{
+     filter: grayscale(0) !important;
+}
+.fileExplorerHeader_box:hover{
+     background-color: rgba(255, 255, 255, .1);
+}
+.fileExplorerNav{
+     padding: 6px;
+     display: grid;
+     grid-template-columns: .6fr 4fr 1.5fr;
+     gap: 8px;
+}
+.fileExplorerNavPart:not(:first-child){
+     border: 1px solid rgba(255, 255, 255, .1);
+}
+.fileExplorerNavPart{
+     border: 0;
+     height: 32px;
+     max-height: 32px;
+     position: relative;
+     padding: 6px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+}
+.fileExplorerNavPart input{
+     position: absolute;
+     inset: 0;
+     width: 100%;
+     height: 100%;
+     border: 0;
+     outline: 0;
+     background-color: transparent;
+     padding: 10px;
+     padding-left: 27px;
+     color: var(--light-color);
+}
+.fileExplorerNavPart input::placeholder{
+     font-weight: 200;
+     font-size: 12px;
+}
+.fileExplorerNavPart svg{
+     color: rgba(255, 255, 255, .5);
+     cursor: pointer;
+}
+.fileExplorerNavPart .searchSvg-file{
+     position: absolute;
+     left: 6px;
+     top: 50%;
+     transform: translateY(-50%);
+}

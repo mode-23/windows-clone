@@ -1,0 +1,384 @@
+.home{
+     background-color: var(--bg-color);
+     height: 100dvh;
+     max-height: 100dvh;
+     position: fixed;
+     inset: 0;
+     z-index: -1;
+}
+.home_bg{
+     height: 100dvh;
+     background-image: url('../Home/Home_assest/main_bg3.jpg');
+     background-position: center center;
+     background-size: cover;
+     position: absolute;
+     inset: 0;
+     width: 100%;
+     padding: 20px 30px;
+}
+.home_bg .context_menu{
+     background-color: rgba(0, 0, 0, 0.5);
+     position: absolute;
+     width: 250px;
+     max-height: 300px;
+     /* overflow-y: auto; */
+     z-index: 99999;
+}
+.home_bg .context_menu ul{
+     display: flex;
+     flex-direction: column;
+}
+.home_bg .context_menu ul li{
+     padding: 10px;
+     cursor: pointer;
+     position: relative;
+     user-select: none;
+}
+.home_bg .context_menu ul li span{
+     display: flex;
+     align-items: center;
+     gap: 10px;
+}
+.rightChev{
+     position: absolute;
+     top: 50%;
+     transform: translateY(-50%);
+     right: 10px;
+}
+.home_bg .context_menu ul li.active,
+.home_bg .context_menu ul li:hover{
+     background-color: rgba(255,255,255, .07);
+}
+.sub_collection{
+     position: absolute;
+     top: 50%;
+     left: calc(100%);
+     width: 100%;
+     height: fit-content;
+     background-color: rgba(0, 0, 0, 0.5);
+}
+.bottom_bar{
+     position: fixed;
+     bottom: 7px;
+     width: 100%;
+     padding: 0 10px;
+     height: 6dvh;
+     background-color: var(--bottom-bar-color);
+     background-color: transparent;
+     display: flex;
+     align-items: center;
+     z-index: 9;
+}
+.windowsIcon{
+     height: 100%;
+     aspect-ratio: 1/.9;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     transition: 250ms ease-in-out;
+     cursor: pointer;
+}
+.windowsIcon.active,
+.windowsIcon:hover{
+     background-color: var(--bg-color);
+     background-color: rgba(25, 25, 25, 0.5);
+}
+.searchWindows{
+     height: 100%;
+     width: 16dvw;
+}
+.searchWindows input{
+     width: 100%;
+     height: 100%;
+     padding: 10px;
+     border: 0;
+     outline: 0;
+     background-color: var(--main-color);
+     background-color: transparent;
+     color: var(--light-color);
+}
+.searchWindows input::placeholder{
+     color: rgba(255,255,255, .82);
+}
+/* .messages_bottom_bar_icon{
+     position: absolute;
+     right: 10px;
+     top: 0;
+} */
+.messages_bottom_bar_icon span{
+     position: absolute;
+     width: 1rem;
+     height: 1rem;
+     bottom: 10px;
+     right: 7px;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 12px;
+     border: 1px solid rgba(0, 0, 0, 0.5);
+     background-color: rgba(0, 0, 0, 0.2);
+     z-index: 99;
+     user-select: none;
+}
+.bottom_bar_icon{
+     height: 100%;
+     aspect-ratio: 1/.9;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     transition: 250ms ease-in;
+     cursor: pointer;
+}
+.bottom_bar_icon_2{
+     height: 47.4px !important;
+     width: 100% !important;
+}
+.bottom_bar_icon.active,
+.bottom_bar_icon:hover{
+     background-color: rgba(255,255,255, .1);
+}
+.messages_bottom_bar_icon.active,
+.messages_bottom_bar_icon:hover{
+     background-color: rgba(25, 25, 25, 0.5);
+}
+.bottom_bar_icon svg,
+.bottom_bar_icon img{
+     width: 25px;
+     height: 25px;
+}
+.bottom_bar_icon_2 svg{
+     width: 18px;
+     height: 18px;
+}
+.messages_bottom_bar_icon img,
+.messages_bottom_bar_icon svg{
+     width: 18px;
+     height: 18px;
+}
+.windows_inner_right{
+     position: absolute;
+     bottom: 0;
+     right: 10px;
+     height: 42.6px;
+     display: flex;
+}
+.windows_inner_right .windows_time_inner{
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     height: 100%;
+     padding: 10px;
+     transition: 250ms ease-in-out;
+     cursor: pointer;
+}
+.windows_inner_right .windows_time_inner:hover{
+     background-color: rgba(25, 25, 25, 0.5);
+}
+.windows_inner_right .windows_time_inner span{
+     font-size: 14px;
+     font-weight: 500;
+}
+.bottomBarMenu{
+     position: absolute;
+     bottom: calc(100% + 10px);
+     left: 10px;
+     width: 31dvw;
+     height: 73dvh;
+     overflow: hidden;
+     background-color: rgba(0, 0, 0, 0.5);
+     background: linear-gradient(90deg , rgba(0, 0, 0, 0.7) , rgba(0, 0, 0, 0.5) );
+     backdrop-filter: blur(6px);
+     z-index: 99999999999999 !important;
+}
+.bottomBarMenuLeft{
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 47.4px;
+     height: 100%;
+     background-color: transparent;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: flex-end;
+}
+.bottomBarMenuRight{
+     height: 100%;
+     width: calc(100% - 47.4px);
+     margin-left: 47.4px;
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+}
+.bottomBarMenuRight-1{
+     height: 100%;
+     max-height: 100%;
+     min-height: 100%;
+     overflow-y: auto;
+     scrollbar-color: rgba(0, 0, 0 , .1) transparent;
+     scrollbar-width: none;
+} 
+.bottomBarMenuRight-1::-webkit-scrollbar{
+     width: 0px;
+   }
+.bottomBarMenuRight-1::-webkit-scrollbar-thumb{
+     background-color: var(--alt-color-2);
+   }
+.bottomBarMenuRight-1::-webkit-scrollbar-thumb:hover{
+   background-color: var(--alt-color);
+   }
+.bottomBarMenuRight-1::-webkit-scrollbar-track{
+     background-color: var(--cont-color);
+   }
+.bottomBarMenuRight-0{
+     display: flex;
+     flex-direction: column;
+     gap: 18px;
+     padding: 30px 0;
+}
+.bottomBarMenuRight-0 ul{
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+}
+.bottomBarMenuRight-0 ul li{
+     display: flex;
+     align-items: center;
+     gap: 8px;
+     padding: 5px 10px;
+     transition: 200ms ease-in-out;
+     cursor: pointer;
+     height: 32px;
+}
+.bottomBarMenuRight-0 ul li img{
+     width: 22px;
+}
+.bottomBarMenuRight-0 ul span{
+     padding-left: 10px;
+     font-size: 12px;
+     font-weight: 500;
+     user-select: none;
+}
+.bottomBarMenuRight-0 ul li:hover{
+     background-image: linear-gradient(90deg , rgba(0,0,0, .1) , rgba(0,0,0, .21));
+}
+.bottomBarMenuRight-0 ul li p{
+     font-weight: 400;
+     font-size: 10px;
+     cursor: pointer;
+}
+.bottomBarMenuRight-2{
+     padding: 30px 10px;
+     display: flex;
+     flex-direction: column;
+     gap: 15px;
+     height: 100%;
+     max-height: 100%;
+     min-height: 100%;
+     overflow-y: auto;
+     scrollbar-color: rgba(0, 0, 0 , .1) transparent;
+     scrollbar-width: none;
+}
+.bottomBarMenuRight-2 p{
+     font-weight: 500;
+     font-size: 14px;
+}
+.tranch{
+     display: flex;
+     flex-direction: column;
+     gap: 20px;
+}
+.boxs_bbmr{
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 8px;
+}
+
+.box_bbmr_sky h6{
+     font-size: 10px;
+     font-weight: 500;
+     position: absolute;
+     top: 6px;
+     left: 6px;
+     color: rgba(255,255,255, .72);
+}
+.box_bbmr_sky{
+     background-image: url('../Home/Home_assest/clouds.jpg');
+     background-size: cover;
+     background-position: center;
+     background-blend-mode: overlay;
+     background-color: rgba(0,0,0, .5) !important;
+}
+.boxs_bbmr_sm{
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 8px;
+}
+.box_bbmr_sm{
+     width: 100%;
+     aspect-ratio: 1/1;
+     background-color: rgba(0,0,0, .1);
+     transition: 250ms ease-in-out;
+     cursor: pointer;
+}
+.box_bbmr_sm{
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+.box_bbmr_sm img{
+     width: 60%;
+}
+.box_bbmr_sm:hover{
+     background-color: rgba(0,0,0, .3);
+}
+.box_bbmr_sky,
+.box_bbmr{
+     aspect-ratio: 1/1;
+     background-color: rgba(0,0,0, .1);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     transition: 250ms ease-in-out;
+     cursor: pointer;
+     position: relative;
+}
+
+.box_bbmr_sky span,
+.box_bbmr span{
+     font-size: 10px;
+     font-weight: 500;
+     position: absolute;
+     bottom: 6px;
+     left: 6px;
+}
+.box_bbmr img{
+     width: 2.5rem;
+}
+.box_bbmr.small img{
+     width: 2rem;
+}
+.box_bbmr:hover{
+     background-color: rgba(0,0,0, .21);
+}
+.box_bbmr_sky:hover{
+     background-color: rgba(0,0,0, .41) !important;
+}
+.box_bbmr h5{
+     font-weight: 500;
+     font-size: 10px;
+     text-transform: capitalize;
+     color: rgba(255,255,255, .72);
+}
+.box_bbmr h3{
+     font-size: 2.3rem;
+     font-weight: 300;
+}
+.folder_xl{
+     width: 26px !important;
+}
+.doc_xl{
+     width: 18px !important;
+     padding-left: 3px;
+}

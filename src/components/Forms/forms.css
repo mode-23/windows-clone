@@ -1,0 +1,21 @@
+:root{
+     --forms-bg: #fdfdfd;
+     --forms-padding: 2rem;
+     --forms-style-color: #7346ba;
+}
+.forms_tab{
+     background-color: var(--forms-bg);
+     color: var(--bg-color);
+}
+.forms_title{
+     background-color: var(--forms-bg);
+}
+.forms_header{
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     padding: 15px var(--forms-padding);
+}
+.forms_header .googleFormsIcon{
+     width: 1.6rem;
+}

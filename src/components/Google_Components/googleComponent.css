@@ -1,0 +1,177 @@
+.google_btn{
+     height: 36px;
+     aspect-ratio: 1/1;
+     cursor: pointer;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     border-radius: 50%;
+     border: 0;
+     outline: 0;
+     background-color: transparent;
+     font-size: 20px;
+     color: #787c80;
+}
+.google_btn:active{
+     transform: scale(.95);
+}
+.google_btn.active,
+.google_btn:active,
+.google_btn:hover{
+     background-color: #e9e9e9;
+}
+.google_menu{
+     position: relative;
+}
+.google_menu .google_drop_down{
+     position: absolute;
+     top: calc(100%  + 10px);
+     right: 0;
+     width: 250px;
+     min-height: 150px;
+     overflow-y: auto;
+     background-color: #e9e9e9;
+     z-index: 9999 !important;
+     padding: 10px;
+     border-radius: 4px;
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     gap: 10px;
+     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+.google_sm_bx{
+     width: 100%;
+     aspect-ratio: 1/1;
+     border-radius: inherit;
+     background-color: #fff;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     gap: 5px;
+     transition: 150ms ease-in-out;
+}
+.google_sm_bx span{
+     overflow: hidden;
+          text-overflow: ellipsis;
+          vertical-align: top;
+          white-space: nowrap;
+          max-width: 100%;
+}
+.google_sm_bx:hover{
+     filter: brightness(.97);
+}
+.google_sm_bx img{
+     width: 50%;
+     max-width: 50%;
+}
+.google_sm_bx img.smaller{
+     width: 35%;
+}
+.user_menu{
+     position: relative;
+}
+.user_menu .user_menu_icon{
+     width: 36px;
+     aspect-ratio: 1/1;
+     border-radius: 50%;
+     background-color: #e9e9e9;
+     position: relative;
+     cursor: pointer;
+}
+.user_menu .user_menu_icon.active,
+.user_menu .user_menu_icon:hover{
+     background-color: #e1e1e1;
+}
+.user_menu .user_menu_icon img{
+     width: calc(100% - 5px);
+     height: calc(100% - 5px);
+     border-radius: 50%;
+     position: absolute;
+     top: 2.5px;
+     left: 2.5px;
+}
+.user_menu_drop_down{
+     position: absolute;
+     top: calc(100%  + 10px);
+     right: 0;
+     width: 350px;
+     min-height: 150px;
+     overflow-y: auto;
+     background-color: #eaf1fb;
+     z-index: 9999 !important;
+     padding: 6px;
+     border-radius: 20px;
+     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+     display: flex;
+     flex-direction: column;
+     gap: 3px;
+}
+.user_menu_header{
+     background-color: #fdfdfd;
+     width: 100%;
+     border-radius: 6px;
+     border-top-left-radius: inherit;
+     border-top-right-radius: inherit;
+     /* min-height: 130px; */
+     padding: 10px;
+     padding-bottom: 30px;
+     display: flex;
+     align-items: center;
+     gap: 10px;
+}
+.user_menu_header .start{
+     padding-top: 10px;
+}
+.user_menu_header .start h3{
+     font-size: 15px;
+     font-weight: 600;
+}
+.user_menu_header .start p{
+     font-weight: 400;
+     font-size: 13px;
+     color: #5c5c5c;
+}
+.btnControl{
+     margin-top: 10px;
+     padding: 6px 10px;
+     background-color: transparent;
+     outline: 0;
+     border: 1px solid rgba(47, 49, 50, 0.6);
+     border-radius: 4px;
+     cursor: pointer;
+}
+.btnControl:hover{
+     background-color: rgba(47, 49, 50, 0.1);
+}
+.control_image {
+     position: relative;
+}
+.icon_user{
+     position: absolute;
+     bottom: 5px;
+     right: 5px;
+     width: 22px;
+     aspect-ratio: 1/1;
+     border-radius: 50%;
+     background-color: #fdfdfd;
+     color: rgba(47, 49, 50, 0.6);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+.control_image img{
+     width: 4rem;
+     aspect-ratio: 1/1;
+     border-radius: 50%;
+     border: 1px solid #eaf1fb;
+}
+.user_menu_body{
+     background-color: #fdfdfd;
+     width: 100%;
+     border-radius: 6px;
+     border-bottom-left-radius: inherit;
+     border-bottom-right-radius: inherit;
+     min-height: 130px;
+     overflow: hidden;
+}

@@ -1,0 +1,95 @@
+@media (max-width: 1026px) {
+     .gmail_menu{
+          display: none;
+     }
+     .gmail_body{
+          grid-template-columns: auto 1fr;
+     }
+     .gmail_body .gmail_header{
+          flex-direction: column;
+          height: 40px;
+     }
+     .gmail_body .gmail_header_left{
+          height: 8%;
+     }
+     .gmail_body .main_body_left{
+          width: 65px;
+     }
+     .gmail_body .gmail_header_body_menu{
+          align-items: center;
+          padding-right: 0 !important;
+     }
+     .main_body_left span{
+          display: none;
+     }
+     .menu_content ul li a{
+          padding: 8px 20px;
+     }
+     .menu_content ul li a > div,
+     .primaryBtn > div{
+          display: none;
+     }
+     .gmail_header .gmail_search{
+          width: 100%;
+     }
+     .gmail_header_left{
+          gap: 15px;
+          padding-right: 10px !important;
+     }
+     .customCheckBox{
+          width: 1rem;
+     }
+     .gmail_body_message_inbox svg{
+          font-size: 1rem;
+     }
+     .gmail_body_message_inbox span{
+          font-size: 10px;
+          width: 30px;
+     }
+     .gmail_body_message_inbox .gap-20{
+          gap: 10px;
+     }
+     .gmail_body_message_inbox{
+          gap: 8px;
+     }
+     .icon_1 svg{
+          font-size: 1rem;
+     }
+     .sm_refresh{
+          font-size: 1.35rem !important;
+     }
+     .gmail_header_body_content{
+          width: calc(100% - 10px);
+     }
+     .gmail_tab_header ul li svg{
+          width: 1rem !important;
+          min-width: 1rem;
+     }
+     .gmail_tab_header ul li{
+          width: fit-content;
+          font-size: 13px;
+     }
+     .gmail_messageBox{
+          width: calc(100% - 20px);
+          height: fit-content ;
+     }
+     .no_gmail_data img{
+          width: 12rem;
+     }
+     .title{
+          font-size: 12px;
+     }
+     .gmail_bdy_header h5{
+          font-size: 10px;
+     }
+     .soft-txt-dark{
+          font-size: 9px;
+     }
+     .gmail_bdy_header  .soft-txt-dark:nth-child(1){
+          display: flex;
+          align-self: flex-start !important;
+     }
+}
+@media (min-width: 501px) {
+
+}

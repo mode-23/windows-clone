@@ -1,0 +1,11 @@
+:root{
+     --classroom-bg: #fdfdfd;
+     --classroom-style: #00ff00;
+}
+.classroom{
+     background-color: var(--classroom-bg);
+     color: var(--bg-color);
+}
+.classroom_title{
+     background-color: var(--classroom-bg);
+}

@@ -1,0 +1,69 @@
+@media (max-width: 1026px) {
+
+}
+@media (max-width: 500px) {
+     .dashboard_main{
+          position: fixed;
+          top: 0;
+          left: 0;
+          background-color: var(--light-color);
+          z-index: 9999999;
+          transform: translateX(-100%);
+          transition: 250ms ease-in-out;
+     }
+     .dashboard_main.active{
+          transform: translateX(0%);
+     }
+     .dashboardMenu{
+          display: block;
+          width: 50px;
+          max-width: 50px;
+     }
+     .dashboard_aside{
+          height: 100dvh;
+          width: 50px;
+     }
+     .msg_inside{
+          max-width: 100%;
+          font-size: 12px;
+          gap: 0px;
+     }
+     .img_dash_2{
+          width: 38px;
+          border-width: 1px;
+     }
+     .wttitle{
+          font-size: .7rem;
+     }
+     .wtnum{
+          font-size: .6rem;
+     }
+     .mid_sm{
+          align-self: unset ;
+     }
+     .whatsapp_send,
+     .whatsappChat header{
+          padding: 10px 15px;
+     }
+     .msgBox_wt{
+          padding: 5px 15px;
+     }
+     .whatsapp_send{
+          gap: 10px;
+     }
+     .icon_1{
+          width: 24px;
+     }
+     .whatsappCreate .h2title{
+          font-size: 1.2rem;
+     }
+     .sm_menu_wt{
+          display: flex;
+          cursor: pointer;
+     }
+}
+@media (min-width: 501px) {
+     .sm_menu_wt{
+          display: none;
+     }
+}

@@ -1,0 +1,31 @@
+.skeleton_icon_header{
+     display: flex;
+     align-items: center;
+     gap: 10px;
+}
+.skeleton_icon{
+     width: 2rem;
+     aspect-ratio: 1/1;
+     background-color: rgba(255,255,255, .2);
+     border-radius: 50%;
+}
+.skeleton_name{
+     width: 30%;
+     height: 7px;
+     background-color: rgba(255,255,255, .2);
+}
+.skeleton_name_2{
+     width: 100%;
+     height: 7px;
+     background-color: rgba(255,255,255, .2);
+}
+.skeleton_name_2_half{
+     width: 60%;
+     height: 7px;
+     background-color: rgba(255,255,255, .2);
+}
+.direction{
+     display: grid;
+     grid-template-rows: 1fr 1fr 1fr 1fr;
+     gap: 10px;
+}

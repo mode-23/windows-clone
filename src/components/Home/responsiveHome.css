@@ -1,0 +1,47 @@
+@media (max-width: 1026px) {
+     .bottomBarMenu{
+          width: 60vw;
+     }
+}
+@media (max-width: 600px) {
+     .bottomBarMenu{
+          width: calc(100vw - 20px);
+     }
+     .box_bbmr img{
+          width: 1.2rem;
+     }
+     .box_bbmr_sky span, .box_bbmr span{
+          font-size: 8px;
+     }
+     .box_bbmr h5{
+          font-size: 8px;
+     }
+     .boxs_bbmr_sm{
+          gap: 2px;
+     }
+     .box_bbmr_sky h6{
+          display: none;
+     }
+     .desktip_icon{
+          width: 4rem;
+     }
+     .desktip_icon img{
+          width: 2.2rem;
+     }
+     .bottom_bar_icon svg, .bottom_bar_icon img {
+          width: 18px;
+          height: 18px;
+     }
+     .gmailNotifications{
+          width: calc(100vw - 20px) !important;
+     }
+     .date_login{
+          top: 50%;
+          bottom: unset !important;
+          left: 50% !important;
+          transform: translate(-50%, -50%);
+     }
+     .log_user_icon{
+          width: 6rem !important;
+     }
+}

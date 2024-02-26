@@ -1,0 +1,186 @@
+.weather{
+     background-image: url('../Home_assest/weather_img.jpg');
+     background-size: cover;
+     background-position: center;
+     background-blend-mode: overlay;
+     background-color: rgba(0, 0, 0, .4) !important;
+    width: calc(100dvw - 40dvw);
+    left: 20dvw;
+    z-index: 9999;
+}
+.weather_title{
+     background-color: transparent;
+}
+.refresh_icon{
+     position: absolute;
+     top: 40px;
+     left: 10px;
+     cursor: pointer;
+     color: rgba(255,255,255, .7);
+}
+.refresh_icon:hover{
+     color: var(--light-color);
+}
+.icon_wt{
+     justify-content: center;
+}
+.weather_top_menu img{
+     width: 3rem;
+}
+.weather_top_menu h4{
+     font-size: 10px;
+     font-weight: 600;
+     text-transform: capitalize;
+}
+.weather_top_menu h2{
+     font-size: 5.2rem;
+     font-weight: 400;
+}
+.weather_top_menu h2 span{
+     font-weight: 200;
+     font-size: 3.2rem;
+}
+.weather_top_menu{
+     padding-top: 40px;
+     width: fit-content;
+     margin: auto;
+     text-align: center;
+}
+.weather_mid_menu2{
+     position: relative;
+}
+.weather_mid_menu2::before{
+     content: '';
+     position: absolute;
+     top: 64px;
+     width: 100%;
+     height: 1px;
+     background-color: rgba(255,255,255, .2);
+}
+.weather_mid_menu2::after{
+     content: '';
+     position: absolute;
+     bottom: 15px;
+     width: 100%;
+     height: 1px;
+     background-color: rgba(255,255,255, .2);
+}
+.weather_mid_menu{
+     padding: 15px;
+     padding-top: 25px;
+     width: 100%;
+}
+.weather_mid_menu h3{
+     font-weight: 400;
+     font-size: 16px;
+}
+.weather_mid_menu_daily{
+     display: grid;
+     grid-template-columns: repeat(7 , 1fr);
+     margin-top: 20px;
+}
+.weather_mid_menu_hourly{
+     display: flex;
+     align-items: center;
+     margin-top: 20px;
+     width: fit-content;
+}
+.weather_mid_menu_daily_box{
+     width: 100%;
+     aspect-ratio: 1/1.3;
+     position: relative;
+     padding: 10px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     gap: 6px;
+}
+.weather_mid_menu_hourly_box{
+     display: flex;
+     flex-direction: column;
+     align-items: unset;
+     gap: 6px;
+     aspect-ratio: 1/1.3;
+     padding: 10px;
+     position: relative;
+}
+.weather_mid_menu_hourly_box h2{
+     font-size: 14px;
+     font-weight: 600;
+}
+.drop_rain_pos{
+     font-size: 14px;
+     font-weight: 400;
+     color: rgba(255,255,255, .7);
+}
+.more_weather_hourly_assests img{
+     width: 1rem !important;
+}
+.weather_mid_menu_hourly .weather_mid_menu_daily_box{
+     width: 122.367px !important;
+     min-width: 122.367px !important;
+}
+
+.weather_mid_menu_daily_box:hover{
+     background-color: rgba(255,255,255, .2);
+}
+.weather_mid_menu_hourly_box:hover{
+     background-color: transparent;
+}
+.weather_mid_menu_daily_box:hover::after{
+     border-top: 10px solid rgba(255,255,255, .2); 
+}
+.weather_mid_menu_hourly_box:hover::after{
+     border-top: 10px solid transparent; 
+}
+.weather_mid_menu_daily_box::after{
+     content: '';
+     position: absolute;
+     top: 100%;
+     left: 50%;
+     transform: translateX(-50%);
+     width: 0; 
+     height: 0; 
+     border-top: 10px solid transparent; 
+     border-bottom: 10px solid transparent;
+     border-left: 10px solid transparent;
+     border-right: 10px solid transparent;
+}
+.weather_mid_menu_daily_box img{
+     width: 2.7rem;
+}
+.weather_mid_menu_daily_box p{
+     font-weight: 500;
+     font-size: 12px;
+}
+.weather_mid_menu_daily_box h3{
+     font-size: 2.6rem;
+     font-weight: 400;
+     display: flex;
+     gap: 10px;
+}
+.weather_mid_menu_daily_box  span{
+     font-size: .9rem;
+     font-weight: 500;
+     color: rgba(255,255,255, .7);
+     align-self: flex-end;
+     padding-bottom: 6px;
+}
+.weather_mid_menu_holder{
+     height: calc(60% );
+     max-height: calc(60% );
+     overflow-y: auto;
+     overflow-x: hidden;
+     scrollbar-width: none;
+}
+.loadingWeather{
+     width: 100%;
+     height: calc(100% - 30px);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+.loadingWeather img{
+     width: 12rem;
+}
