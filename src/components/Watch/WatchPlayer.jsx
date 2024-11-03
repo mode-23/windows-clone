@@ -11,7 +11,7 @@ import { SlLoop } from "react-icons/sl";
 import { FaVolumeHigh } from "react-icons/fa6";
 
 const WatchPlayer = ({ preview }) => {
-  console.log(preview.preview);
+  console.log(preview);
 
   return (
     <div className="watch_player">

@@ -675,3 +675,26 @@
   padding: 10px !important;
   height: 30px !important;
 }
+.doc_left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+}
+.doc_left button {
+  width: 38px;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border-radius: 50%;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.15);
+  background-color: transparent;
+}
+.doc_left button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}

@@ -9,13 +9,20 @@ import {
   onSnapshot,
   updateDoc,
   serverTimestamp,
+  collection,
+  query,
 } from "firebase/firestore";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import file from "../Home_assest/file.png";
 import OfficeLoader from "./OfficeLoader";
 import { BsCloudCheck, BsDash, BsStar, BsStarFill } from "react-icons/bs";
 import { VscPrimitiveSquare } from "react-icons/vsc";
-import { IoCloseSharp } from "react-icons/io5";
+import {
+  IoCloseSharp,
+  IoLockOpenOutline,
+  IoLockClosedOutline,
+} from "react-icons/io5";
+import { AiOutlinePlus } from "react-icons/ai";
 import { HiOutlineRefresh } from "react-icons/hi";
 import Summary from "./Summary";
 import office_pic from "../Home_assest/office.png";
@@ -29,10 +36,12 @@ const Document = ({ user }) => {
   }, [user]);
   const [editorState, seteditorState] = useState(EditorState.createEmpty());
   const [data, setdata] = useState({});
+  const [usersSuggestions, setUsersSuggestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [wideTab, isWideTab] = useState(true);
   const [tabbed, isTabbed] = useState(false);
   const [isSaved, setSaved] = useState(true);
+  const [isReadOnly, setReadOnly] = useState(false);
   const { id } = useParams();
   useEffect(() => {
     setLoading(false);
@@ -49,6 +58,35 @@ const Document = ({ user }) => {
       unsub();
     };
   }, [id]);
+  useEffect(() => {
+    const refrence = collection(db, "user");
+    const q = query(refrence);
+    const unsub = onSnapshot(
+      q,
+      (snapShot) => {
+        let list = [];
+        snapShot.docs.forEach((doc) => {
+          if (doc.data().uid != user?.uid) {
+            list.push({ ...doc.data() });
+          }
+          setUsersSuggestions(list);
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    return () => {
+      unsub();
+    };
+  }, [user]);
+  const formattedSuggestions = usersSuggestions?.map((item) => ({
+    text: item.displayName,
+    value: item.email,
+    url: "/",
+  }));
+  console.log(formattedSuggestions);
+
   const onEditorStateChange = async (editorState) => {
     setSaved(false);
     seteditorState(editorState);
@@ -207,7 +245,18 @@ const Document = ({ user }) => {
                 </div>
               </div>
             </div>
-            {/*share*/}
+            <div className="doc_left">
+              <button>
+                <AiOutlinePlus />
+              </button>
+              <button onClick={() => setReadOnly(() => !isReadOnly)}>
+                {isReadOnly ? (
+                  <IoLockClosedOutline title="read only" />
+                ) : (
+                  <IoLockOpenOutline title="read & write" />
+                )}
+              </button>
+            </div>
           </div>
           <div className="document_body_content">
             <Summary />
@@ -220,30 +269,33 @@ const Document = ({ user }) => {
               mention={{
                 separator: " ",
                 trigger: "@",
-                suggestions: [
-                  { text: "APPLE", value: "apple", url: "/office" },
-                  { text: "BANANA", value: "banana", url: "banana" },
-                  { text: "CHERRY", value: "cherry", url: "cherry" },
-                  { text: "DURIAN", value: "durian", url: "durian" },
-                  { text: "EGGFRUIT", value: "eggfruit", url: "eggfruit" },
-                  { text: "FIG", value: "fig", url: "fig" },
-                  {
-                    text: "GRAPEFRUIT",
-                    value: "grapefruit",
-                    url: "grapefruit",
-                  },
-                  { text: "HONEYDEW", value: "honeydew", url: "honeydew" },
-                ],
+                suggestions: formattedSuggestions,
               }}
-              // toolbar={   {
-              //   inline: { inDropdown: true },
-              //   list: { inDropdown: true },
-              //   textAlign: { inDropdown: true },
-              //   link: { inDropdown: true },
-              //   history: { inDropdown: true },
-              // }
-              //   }
-              // readOnly
+              // toolbar={{
+              //   options: [
+              //     "inline",
+              //     "blockType",
+              //     "fontSize",
+              //     "fontFamily",
+              //     "list",
+              //     "textAlign",
+              //     "link",
+              //     "embedded",
+              //     "emoji",
+              //     "image",
+              //   ],
+              //   inline: {
+              //     options: ["bold", "italic", "underline", "strikethrough"],
+              //   },
+              //   list: {
+              //     options: ["unordered", "ordered", "indent", "outdent"],
+              //   },
+              //   textAlign: { options: ["left", "center", "right", "justify"] },
+              //   embedded: {
+              //     defaultSize: { height: "auto", width: "100%" },
+              //   },
+              // }}
+              readOnly={isReadOnly}
             />
           </div>
         </>

@@ -555,7 +555,10 @@
 .channel_tab_thumb {
   border-radius: 50%;
   width: 6.5rem;
-  aspect-ratio: 1/1;
+  max-width: 6.5rem;
+  height: 6.5rem;
+  max-height: 6.5rem;
+  background-color: var(--yt-link-color-hover);
 }
 .drc {
   display: flex;
@@ -710,8 +713,12 @@
 }
 .commentBox img {
   width: 3rem;
+  max-width: 3rem;
+  height: 3rem;
+  min-height: 3rem;
   aspect-ratio: 1/1;
   border-radius: 50%;
+  background-color: var(--yt-link-color-hover);
 }
 .commentBox h5.author {
   background-color: var(--yt-link-color-hover);

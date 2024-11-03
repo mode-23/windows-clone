@@ -388,3 +388,116 @@
   width: 18px !important;
   padding-left: 3px;
 }
+.spotify_preview {
+  width: 20svw;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(15px);
+}
+.spotify_preview img {
+  width: 60px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+.spotify_preview_info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-self: flex-start;
+}
+.spotify_preview_info h4 {
+  font-size: 16px;
+  font-weight: 400;
+}
+.spotify_preview_info h4 p,
+.spotify_preview_info h4 span {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
+}
+.spotify_preview_info svg {
+  font-size: 23px;
+}
+.spotify_preview_header {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 15px;
+}
+.spotify_preview_body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.spotify_preview_body .buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.spotify_preview_body .buttons button {
+  width: 50px;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  outline: 0;
+  border: 1px solid var(--light-color);
+  color: var(--light-color);
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 28px;
+  transition: 250ms ease-in-out;
+}
+.spotify_preview_body .buttons button:hover {
+  background-color: var(--light-color);
+  color: var(--bg-color);
+}
+.spotify_preview_body .buttons button.smallBtn {
+  width: 34px;
+  font-size: 16px;
+}
+.spotify_preview_holder {
+  display: flex;
+  gap: 10px;
+  height: 172.8px;
+  width: fit-content;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+.spotify_preview_volume {
+  width: 60px;
+  height: 100%;
+  min-height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+}
+.spotify_preview_volume h5 {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.spotify_preview_volume input {
+  transform: rotate(-90deg);
+  -webkit-appearance: none;
+  height: 10px;
+  width: 120px;
+  margin-bottom: 20px;
+  outline: 0;
+  background-color: rgba(255, 255, 255, 0.4);
+  overflow: hidden;
+}
+.spotify_preview_volume input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  cursor: grab;
+  box-shadow: -407px 0 0 400px #1db954;
+}
