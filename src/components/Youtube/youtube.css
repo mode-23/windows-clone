@@ -509,6 +509,7 @@
   background-size: cover;
   background-position: center;
   background-color: var(--yt-link-color-hover);
+  border-radius: 18px;
 }
 .no_channel_data {
   display: flex;

@@ -68,6 +68,8 @@ import CreateYoutube from "./components/Youtube/CreateYoutube";
 import Artist from "./components/Watch/Artist";
 import RecentSearches from "./components/Watch/RecentSearches";
 import Album from "./components/Watch/Album";
+import Track from "./components/Watch/Track";
+import WatchPlaylist from "./components/Watch/WatchPlaylist";
 
 function App() {
   const [user, setuser] = useState({});
@@ -174,6 +176,8 @@ function App() {
           <Route path="query/:query" element={<WatchSearch />} />
           <Route path="artist/:id" element={<Artist />} />
           <Route path="album/:id" element={<Album />} />
+          <Route path="track/:id" element={<Track />} />
+          <Route path="playlist/:id" element={<WatchPlaylist />} />
           <Route path="recent_searches" element={<RecentSearches />} />
         </Route>
         <Route path="/map" element={<Map />} />

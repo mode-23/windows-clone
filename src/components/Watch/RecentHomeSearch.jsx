@@ -14,8 +14,7 @@ const RecentHomeSearch = ({ item }) => {
       isLoading(true);
       console.log(res);
     });
-  }, [item]);
-  console.log(data?.data?.[0]?.artist?.name);
+  }, []);
 
   return (
     <div

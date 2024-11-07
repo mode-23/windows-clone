@@ -16,6 +16,7 @@ import {
 import { userContext } from "../../Context/UserContext";
 import RecentHomeSearch from "./RecentHomeSearch";
 import GenreBox from "./GenreBox";
+import { IoIosShareAlt } from "react-icons/io";
 
 const WatchHome = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -166,9 +167,16 @@ const WatchHome = () => {
         </div>
         <h2>Recently Searched</h2>
         <div className="watch_home_slider">
-          {searchData?.slice(0, 8)?.map((item, index) => (
+          {searchData?.slice(0, 7)?.map((item, index) => (
             <RecentHomeSearch item={item} key={index} />
           ))}
+          <div
+            className="watch_home_foru_box  watch_home_foru_box_add"
+            onClick={() => navigate("/watch/recent_searches")}
+          >
+            <IoIosShareAlt />
+            <h3>Show more</h3>
+          </div>
         </div>
         <h2>Your top genres</h2>
         <div className="watch_home_genres">

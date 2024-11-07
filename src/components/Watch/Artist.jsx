@@ -1,28 +1,32 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 import { deezerFromApi } from "./DeezerAPI";
 import TrackList from "./TrackList";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase/Firebase";
 import { userContext } from "../../Context/UserContext";
-
+import BannerLoading from "./BannerLoading";
 const Artist = () => {
   const { id } = useParams();
   const { user } = useContext(userContext);
+  const { setPreview } = useOutletContext();
   const [data, setData] = useState({});
   const [tracklist, setTrackList] = useState([]);
-  const [loading, isLoading] = useState(true);
+  const [loading, isLoading] = useState(false);
+  const [loadingTracklist, isLoadingTracklist] = useState(false);
   useEffect(() => {
-    isLoading(false);
+    isLoading(true);
     deezerFromApi(`artist/${id}`).then((res) => {
       setData(res);
-      isLoading(true);
+      isLoading(false);
     });
   }, [id]);
   useEffect(() => {
     if (data?.name) {
+      isLoadingTracklist(true);
       deezerFromApi(`search?q=${data?.name}`).then((res) => {
         setTrackList(res.data);
+        isLoadingTracklist(false);
       });
     }
   }, [data, id]);
@@ -48,6 +52,8 @@ const Artist = () => {
       createFavArtist();
     }
   }, [user, data]);
+  if (loading) return <BannerLoading />;
+
   return (
     <div className="artist_profile">
       <div className="artist_profile_banner_holder">
@@ -72,8 +78,11 @@ const Artist = () => {
           style={{ backgroundImage: `url(${data?.picture_xl})` }}
         ></div>
       </div>
-
-      <TrackList tracklist={tracklist} />
+      <TrackList
+        tracklist={tracklist}
+        loadingTracklist={loadingTracklist}
+        setPreview={setPreview}
+      />
     </div>
   );
 };

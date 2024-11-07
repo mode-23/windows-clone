@@ -482,6 +482,7 @@
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
+  font-weight: 500;
 }
 .spotify_preview_volume input {
   transform: rotate(-90deg);

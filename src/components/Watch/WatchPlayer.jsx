@@ -9,22 +9,34 @@ import {
 import { PiShuffleAngular } from "react-icons/pi";
 import { SlLoop } from "react-icons/sl";
 import { FaVolumeHigh } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const WatchPlayer = ({ preview }) => {
+  const navigate = useNavigate();
   console.log(preview);
 
   return (
-    <div className="watch_player">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="watch_player"
+    >
       <div className="watch_player_title">
         <div
           className="song_preview"
           style={{ backgroundImage: `url(${preview?.album?.cover_xl})` }}
         />
-        <div className="start">
-          <h3>{preview?.title_short}</h3>
-          <p>{preview?.artist?.name}</p>
+        <div className="end">
+          <h3 onClick={() => navigate(`/watch/track/${preview?.id}`)}>
+            {preview?.title}
+          </h3>
+          <p onClick={() => navigate(`/watch/artist/${preview?.artist?.id}`)}>
+            {preview?.artist?.name}
+          </p>
         </div>
-        <div className="start">
+        <div className="end">
           <div className="icon_1 icon_3">
             <BsHeart />
           </div>
@@ -57,7 +69,7 @@ const WatchPlayer = ({ preview }) => {
       <div className="watch_player_parameter">
         <FaVolumeHigh />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

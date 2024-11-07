@@ -64,6 +64,9 @@ img {
 .start {
   align-self: flex-start;
 }
+.end {
+  align-self: flex-end;
+}
 .gap-20 {
   gap: 20px;
 }
@@ -220,7 +223,7 @@ img {
 }
 .icon_1.active,
 .icon_1:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .light_icon:hover {
   background-color: rgba(255, 255, 255, 0.1) !important;

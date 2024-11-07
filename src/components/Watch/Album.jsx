@@ -1,21 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useOutletContext } from "react-router-dom";
 import { deezerFromApi } from "./DeezerAPI";
 import TrackList from "./TrackList";
 import { userContext } from "../../Context/UserContext";
 import { db } from "../../firebase/Firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import BannerLoading from "./BannerLoading";
 const Album = () => {
   const navigate = useNavigate();
   const { user } = useContext(userContext);
   const { id } = useParams();
+  const { setPreview } = useOutletContext();
   const [data, setData] = useState({});
-  const [loading, isLoading] = useState(true);
+  const [loading, isLoading] = useState(false);
   useEffect(() => {
-    isLoading(false);
+    isLoading(true);
     deezerFromApi(`album/${id}`).then((res) => {
       setData(res);
-      isLoading(true);
+      isLoading(false);
       console.log(res);
     });
   }, [id]);
@@ -25,11 +27,13 @@ const Album = () => {
     const secs = duartion % 60;
 
     if (hours > 0) {
-      return `${hours} hr${hours > 1 ? "s" : ""} ${minutes} min${
+      return `${hours} hr${hours > 1 ? "s" : ""} ${
+        minutes > 9 ? minutes : "0" + minutes
+      } minute${minutes > 1 ? "s" : ""}`;
+    } else if (minutes > 0) {
+      return `${minutes > 9 ? minutes : "0" + minutes} minute${
         minutes > 1 ? "s" : ""
       }`;
-    } else if (minutes > 0) {
-      return `${minutes} min${minutes > 1 ? "s" : ""}`;
     } else {
       return `${secs} sec${secs > 1 ? "s" : ""}`;
     }
@@ -56,6 +60,7 @@ const Album = () => {
       data?.genres?.data?.[0] && createGenre();
     }
   }, [user, data]);
+  if (loading) return <BannerLoading />;
   return (
     <div className="album_profile artist_profile">
       <div className="artist_profile_banner_holder">
@@ -64,17 +69,31 @@ const Album = () => {
           <div className="artist_profile_info_details">
             <h3>{data?.title}</h3>
             <span>
-              By{" "}
-              <small
-                onClick={() => navigate(`/watch/artist/${data?.artist?.id}`)}
-              >
-                {data?.artist?.name}
-              </small>
+              <div className="df">
+                By
+                {data?.contributors?.map((item) => (
+                  <small
+                    key={item.id}
+                    onClick={() => navigate(`/watch/artist/${item?.id}`)}
+                  >
+                    {item?.name}
+                  </small>
+                ))}
+              </div>
             </span>
             <div className="df">
-              <p>{formatTime(data?.duration)}</p>
-              <p>•</p>
               <p>{data?.nb_tracks} tracks</p>
+              <p>|</p>
+              <p>{formatTime(data?.duration)}</p>
+              <p>|</p>
+              <p>{data?.release_date?.replace(/-/g, "/")}</p>
+              <p>|</p>
+              <p>
+                {new Intl.NumberFormat("en-IN", {
+                  maximumSignificantDigits: 3,
+                }).format(data?.fans)}{" "}
+                fans
+              </p>
             </div>
           </div>
         </div>
@@ -83,7 +102,7 @@ const Album = () => {
           style={{ backgroundImage: `url(${data?.cover_xl})` }}
         ></div>
       </div>
-      <TrackList tracklist={data?.tracks?.data} />
+      <TrackList tracklist={data?.tracks?.data} setPreview={setPreview} />
     </div>
   );
 };
