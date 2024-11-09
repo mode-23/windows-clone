@@ -13,6 +13,8 @@ const Album = () => {
   const { setPreview } = useOutletContext();
   const [data, setData] = useState({});
   const [loading, isLoading] = useState(false);
+  const [openPopUp, setOpenPopUp] = useState("");
+
   useEffect(() => {
     isLoading(true);
     deezerFromApi(`album/${id}`).then((res) => {
@@ -47,7 +49,7 @@ const Album = () => {
           if (!res.exists()) {
             await setDoc(doc(db, "favGenres", favGenreId), {
               id: favGenreId,
-              userId: user.uid,
+              userId: user?.uid,
               data: data?.genres?.data?.[0],
             });
           } else {
@@ -102,7 +104,12 @@ const Album = () => {
           style={{ backgroundImage: `url(${data?.cover_xl})` }}
         ></div>
       </div>
-      <TrackList tracklist={data?.tracks?.data} setPreview={setPreview} />
+      <TrackList
+        tracklist={data?.tracks?.data}
+        setPreview={setPreview}
+        openPopUp={openPopUp}
+        setOpenPopUp={setOpenPopUp}
+      />
     </div>
   );
 };

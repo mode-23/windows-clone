@@ -36,7 +36,7 @@ const CreatePlaylist = ({ setCreatePlaylist }) => {
   useEffect(() => {
     const uploadImg = () => {
       const storage = getStorage();
-      const storageRef2 = ref(storage, "commentImage" + playlistDetails.postId);
+      const storageRef2 = ref(storage, "playlistImg" + playlistDetails.id);
       const uploadTask2 = uploadBytesResumable(storageRef2, imageFile);
       uploadTask2.on(
         "state_changed",

@@ -14,6 +14,8 @@ const Artist = () => {
   const [tracklist, setTrackList] = useState([]);
   const [loading, isLoading] = useState(false);
   const [loadingTracklist, isLoadingTracklist] = useState(false);
+  const [openPopUp, setOpenPopUp] = useState("");
+
   useEffect(() => {
     isLoading(true);
     deezerFromApi(`artist/${id}`).then((res) => {
@@ -39,7 +41,7 @@ const Artist = () => {
           if (!res.exists()) {
             await setDoc(doc(db, "favArtist", favArtist), {
               id: favArtist,
-              userId: user.uid,
+              userId: user?.uid,
               data,
             });
           } else {
@@ -82,6 +84,8 @@ const Artist = () => {
         tracklist={tracklist}
         loadingTracklist={loadingTracklist}
         setPreview={setPreview}
+        openPopUp={openPopUp}
+        setOpenPopUp={setOpenPopUp}
       />
     </div>
   );

@@ -3,7 +3,14 @@ import { FaRegClock } from "react-icons/fa6";
 import TrackBox from "./TrackBox";
 import { TfiPlus } from "react-icons/tfi";
 
-const TrackList = ({ tracklist, setPreview, type }) => {
+const TrackList = ({
+  tracklist,
+  setPreview,
+  type,
+  openPopUp,
+  setOpenPopUp,
+  id,
+}) => {
   return (
     <div className="tracklist">
       {!type && <h3 className="track_title">Track list</h3>}
@@ -31,6 +38,9 @@ const TrackList = ({ tracklist, setPreview, type }) => {
           key={index}
           index={index}
           setPreview={setPreview}
+          openPopUp={openPopUp}
+          setOpenPopUp={setOpenPopUp}
+          id={id}
         />
       ))}
     </div>

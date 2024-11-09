@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
-import { doc, onSnapshot } from "firebase/firestore";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase/Firebase";
 import userImg from "../Home/Home_assest/user1.png";
 import { BsPen, BsTrash3 } from "react-icons/bs";
 import { TfiSearch } from "react-icons/tfi";
 import TrackList from "./TrackList";
 import { FaPlay } from "react-icons/fa6";
+import Tooltip from "../Asset/Tooltip";
 
 const WatchPlaylist = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { setPreview } = useOutletContext();
   const [data, setdata] = useState({});
@@ -16,6 +18,14 @@ const WatchPlaylist = () => {
   const [tracklist, setTrackList] = useState([]);
   const [loadingTracklist, isLoadingTracklist] = useState(false);
 
+  const handleDelete = async () => {
+    try {
+      await deleteDoc(doc(db, "deezerPlaylist", id));
+    } catch (err) {
+      console.log(err);
+    }
+    navigate(`/watch`, { replace: true });
+  };
   useEffect(() => {
     setLoading(false);
     const unsub = onSnapshot(doc(db, "deezerPlaylist", id), (doc) => {
@@ -56,16 +66,21 @@ const WatchPlaylist = () => {
       <div className="playlist_container_body">
         <header>
           <div className="df">
-            {tracklist.length > 0 && (
-              <div className="icon_pl_wl icon_pl_play">
+            {data?.playListArray?.length > 0 && (
+              <div className="icon_pl_wl icon_pl_play toolholder">
+                <Tooltip message={"Play"} direction="top" />
                 <FaPlay />
               </div>
             )}
-
-            <div className="icon_pl_wl">
+            <div className="icon_pl_wl toolholder">
+              <Tooltip message={"Edit playlist"} direction="top" />
               <BsPen />
             </div>
-            <div className="icon_pl_wl icon_pl_dl">
+            <div
+              className="icon_pl_wl icon_pl_dl toolholder"
+              onClick={handleDelete}
+            >
+              <Tooltip message={"Delete playlist"} direction="top" />
               <BsTrash3 />
             </div>
           </div>
@@ -79,6 +94,7 @@ const WatchPlaylist = () => {
           loadingTracklist={loadingTracklist}
           setPreview={setPreview}
           type="playlist"
+          id={id}
         />
       </div>
     </div>

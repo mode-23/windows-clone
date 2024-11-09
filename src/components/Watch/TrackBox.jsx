@@ -1,16 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { BsPlusLg } from "react-icons/bs";
 import { GoHeart, GoHeartFill } from "react-icons/go";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { addToPlayList } from "./AddToPlaylist";
 import { userContext } from "../../Context/UserContext";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../firebase/Firebase";
 import { MdMusicOff } from "react-icons/md";
+import { TfiSearch } from "react-icons/tfi";
+import { AiOutlinePlus } from "react-icons/ai";
 
-const TrackBox = ({ item, index, setPreview }) => {
+const TrackBox = ({ item, setPreview, openPopUp, setOpenPopUp, id }) => {
   const { user } = useContext(userContext);
   const [data, setData] = useState([]);
+  const { setCreatePlaylist } = useOutletContext();
 
   useEffect(() => {
     const refrence = collection(db, "deezerPlaylist");
@@ -36,7 +39,6 @@ const TrackBox = ({ item, index, setPreview }) => {
       unsub();
     };
   }, []);
-  const testId = "6fb52ca8-e503-4b92-b654-51e7dd374764";
   const navigate = useNavigate();
   const [isHovered, setHovered] = useState(false);
   const formatTime = (duartion) => {
@@ -60,9 +62,31 @@ const TrackBox = ({ item, index, setPreview }) => {
       return minutes + ":" + seconds;
     }
   };
-  const checkExistance = data?.[0]?.playListArray?.some(
-    (list) => list?.id === item?.id
+  const checkExistance = data?.some((dataItem) =>
+    dataItem?.playListArray?.some((list) => list?.id === item?.id)
   );
+  const handlePopUp = () => {
+    if (id) {
+      addToPlayList(data, item, id);
+    } else {
+      setOpenPopUp(item?.id);
+    }
+  };
+  let menuRef = useRef();
+  let windBtnRef = useRef();
+
+  useEffect(() => {
+    let clickOutside = (e) => {
+      if (windBtnRef.current.contains(e.target)) return;
+      if (!menuRef.current.contains(e.target)) {
+        setOpenPopUp("");
+      }
+    };
+    document.addEventListener("click", clickOutside);
+    return () => {
+      document.removeEventListener("click", clickOutside);
+    };
+  });
   return (
     <div className="tracklist_box track_grid">
       <div className="track_info df">
@@ -70,21 +94,54 @@ const TrackBox = ({ item, index, setPreview }) => {
         <p onClick={() => setPreview(item)}>{item.title}</p>
       </div>
       <div className="track_fav">
+        {openPopUp === item.id && (
+          <div className="popUpPlaylist" ref={menuRef}>
+            <div className="popInput">
+              <TfiSearch />
+              <input type="text" />
+            </div>
+            <div className="popUpPlayBody">
+              <div
+                className="popUpPlayButton df"
+                onClick={() => setCreatePlaylist(true)}
+              >
+                <AiOutlinePlus />
+                <h4>new playlist</h4>
+              </div>
+              <div className="popUpplayData">
+                {data?.map((list) => (
+                  <div
+                    key={list.id}
+                    className="popUpplayDataBox"
+                    onClick={() => addToPlayList(data, item, list.id)}
+                  >
+                    <img src={list.playListImgLive} alt={list.playListName} />
+                    <div className="end">{list.playListName}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
         <button
-          onMouseOver={() => setHovered(true)}
+          onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
           {isHovered ? <GoHeartFill /> : <GoHeart />}
         </button>
-        {!checkExistance ? (
-          <button onClick={() => addToPlayList(data, item, testId)}>
-            <BsPlusLg />
-          </button>
-        ) : (
-          <button onClick={() => addToPlayList(data, item, testId)}>
-            <MdMusicOff />
-          </button>
-        )}
+        <button
+          onClick={handlePopUp}
+          ref={windBtnRef}
+          className={openPopUp === item.id || id ? "active" : "non_act"}
+        >
+          {id ? (
+            <>
+              <MdMusicOff className="removeTrack" />
+            </>
+          ) : (
+            <>{checkExistance ? <MdMusicOff /> : <BsPlusLg />}</>
+          )}
+        </button>
       </div>
       <div className="track_album" title={item.album.title}>
         <p onClick={() => navigate(`/watch/album/${item.album.id}`)}>
