@@ -87,6 +87,7 @@ const WatchHome = () => {
             list.push({ ...doc.data() });
           }
           setGenres(list);
+          console.log(list);
         });
       },
       (error) => {

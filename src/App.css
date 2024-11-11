@@ -18,6 +18,7 @@
 ::-webkit-scrollbar {
   width: 0px;
 }
+
 :root {
   --bg-color: #000;
   --theme-color: #e81123;
@@ -206,11 +207,14 @@ img {
   font-size: 1.2rem;
 }
 .icon_1 {
-  width: 28px;
+  width: 35px;
   aspect-ratio: 1/1;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
   color: rgba(0, 0, 0, 0.6);
   border-radius: 50%;
   transition: 250ms ease-in-out;

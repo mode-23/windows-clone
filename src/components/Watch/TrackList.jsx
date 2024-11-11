@@ -10,6 +10,7 @@ const TrackList = ({
   openPopUp,
   setOpenPopUp,
   id,
+  setOpenSearchPopUp,
 }) => {
   return (
     <div className="tracklist">
@@ -17,13 +18,17 @@ const TrackList = ({
       <div className="tracklist_header track_grid">
         <span>track</span>
         <span></span>
+        <span>artist</span>
         <span>album</span>
         <span className="duartion_header">
           <FaRegClock />
         </span>
       </div>
       {type && type === "playlist" && (
-        <div className="tracklist_box tracklist_box_add">
+        <div
+          className="tracklist_box tracklist_box_add"
+          onClick={() => setOpenSearchPopUp(true)}
+        >
           <div className="df">
             <div className="tr_box_icon">
               <TfiPlus />

@@ -4,16 +4,18 @@ import { GoHeart, GoHeartFill } from "react-icons/go";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { addToPlayList } from "./AddToPlaylist";
 import { userContext } from "../../Context/UserContext";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { collection, doc, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../firebase/Firebase";
 import { MdMusicOff } from "react-icons/md";
 import { TfiSearch } from "react-icons/tfi";
 import { AiOutlinePlus } from "react-icons/ai";
+import { addTrackToFavorite } from "./AddToFavorite";
 
 const TrackBox = ({ item, setPreview, openPopUp, setOpenPopUp, id }) => {
   const { user } = useContext(userContext);
   const [data, setData] = useState([]);
   const { setCreatePlaylist } = useOutletContext();
+  console.log(item);
 
   useEffect(() => {
     const refrence = collection(db, "deezerPlaylist");
@@ -39,8 +41,18 @@ const TrackBox = ({ item, setPreview, openPopUp, setOpenPopUp, id }) => {
       unsub();
     };
   }, []);
+  const [deezerTrack, setdeezerTrack] = useState([]);
+  useEffect(() => {
+    if (user?.uid) {
+      const unsub = onSnapshot(doc(db, "deezer", user?.uid), (doc) => {
+        setdeezerTrack(doc?.data()?.favoriteTracks);
+      });
+      return () => {
+        unsub();
+      };
+    }
+  }, [user]);
   const navigate = useNavigate();
-  const [isHovered, setHovered] = useState(false);
   const formatTime = (duartion) => {
     var sec_num = parseInt(duartion, 10);
     var hours = Math.floor(sec_num / 3600);
@@ -124,10 +136,9 @@ const TrackBox = ({ item, setPreview, openPopUp, setOpenPopUp, id }) => {
           </div>
         )}
         <button
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
+          onClick={() => addTrackToFavorite(deezerTrack, item?.id, user?.uid)}
         >
-          {isHovered ? <GoHeartFill /> : <GoHeart />}
+          {deezerTrack?.includes(item?.id) ? <GoHeartFill /> : <GoHeart />}
         </button>
         <button
           onClick={handlePopUp}
@@ -136,18 +147,28 @@ const TrackBox = ({ item, setPreview, openPopUp, setOpenPopUp, id }) => {
         >
           {id ? (
             <>
-              <MdMusicOff className="removeTrack" />
+              {checkExistance ? (
+                <MdMusicOff className="removeTrack" />
+              ) : (
+                <BsPlusLg />
+              )}
             </>
           ) : (
             <>{checkExistance ? <MdMusicOff /> : <BsPlusLg />}</>
           )}
         </button>
       </div>
+      <div className="track_album" title={item.artist.name}>
+        <p onClick={() => navigate(`/watch/artist/${item.artist.id}`)}>
+          {item.artist.name}
+        </p>
+      </div>
       <div className="track_album" title={item.album.title}>
         <p onClick={() => navigate(`/watch/album/${item.album.id}`)}>
           {item.album.title}
         </p>
       </div>
+
       <div className="track_duration">
         <p>{formatTime(item.duration)}</p>
       </div>

@@ -70,6 +70,13 @@ import RecentSearches from "./components/Watch/RecentSearches";
 import Album from "./components/Watch/Album";
 import Track from "./components/Watch/Track";
 import WatchPlaylist from "./components/Watch/WatchPlaylist";
+import Favorites from "./components/Watch/Favorites";
+import FavArtists from "./components/Watch/Favorites/FavArtists";
+import Highlights from "./components/Watch/Favorites/Highlights";
+import FavAlbums from "./components/Watch/Favorites/FavAlbums";
+import FavPlaylists from "./components/Watch/Favorites/FavPlaylists";
+import FavGenres from "./components/Watch/Favorites/FavGenres";
+import FavTracks from "./components/Watch/Favorites/FavTracks";
 
 function App() {
   const [user, setuser] = useState({});
@@ -179,6 +186,14 @@ function App() {
           <Route path="track/:id" element={<Track />} />
           <Route path="playlist/:id" element={<WatchPlaylist />} />
           <Route path="recent_searches" element={<RecentSearches />} />
+          <Route path="favorites" element={<Favorites />}>
+            <Route index element={<Highlights />} />
+            <Route path="albums" element={<FavAlbums />} />
+            <Route path="tracks" element={<FavTracks />} />
+            <Route path="artists" element={<FavArtists />} />
+            <Route path="playlists" element={<FavPlaylists />} />
+            <Route path="genres" element={<FavGenres />} />
+          </Route>
         </Route>
         <Route path="/map" element={<Map />} />
         <Route path="/calendar" element={<Calendar />}>

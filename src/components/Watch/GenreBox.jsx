@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { deezerFromApi } from "./DeezerAPI";
 
 const GenreBox = ({ item }) => {
   const [data, setData] = useState({});
   const [loading, isLoading] = useState(true);
+  const apiUrl = useMemo(() => `genre/${item?.data?.id}`, [item]);
+
   useEffect(() => {
     isLoading(false);
-    deezerFromApi(`genre/${item?.data?.id}`).then((res) => {
+    deezerFromApi(apiUrl).then((res) => {
       setData(res);
       isLoading(true);
       console.log(res);
@@ -18,7 +20,7 @@ const GenreBox = ({ item }) => {
       className="genre_box"
       style={{
         backgroundColor: randomColor,
-        backgroundImage: `url(${data?.picture_xl})`,
+        // backgroundImage: `url(${data?.picture_xl})`,
       }}
     >
       <h3>{data?.name}</h3>

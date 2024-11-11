@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
-import { deleteDoc, doc, onSnapshot } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase/Firebase";
 import userImg from "../Home/Home_assest/user1.png";
 import { BsPen, BsTrash3 } from "react-icons/bs";
@@ -8,15 +8,19 @@ import { TfiSearch } from "react-icons/tfi";
 import TrackList from "./TrackList";
 import { FaPlay } from "react-icons/fa6";
 import Tooltip from "../Asset/Tooltip";
+import LoadingPlaylist from "./LoadingPlaylist";
+import WatchPlaylistPopUp from "./WatchPlaylistPopUp";
+import { AnimatePresence } from "framer-motion";
 
 const WatchPlaylist = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { setPreview } = useOutletContext();
   const [data, setdata] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [tracklist, setTrackList] = useState([]);
   const [loadingTracklist, isLoadingTracklist] = useState(false);
+  const [openSearchPopUp, setOpenSearchPopUp] = useState(false);
 
   const handleDelete = async () => {
     try {
@@ -26,12 +30,21 @@ const WatchPlaylist = () => {
     }
     navigate(`/watch`, { replace: true });
   };
+  // useEffect(() => {
+  //   const checkPlaylist = async () => {
+  //     const res = await getDoc(doc(db, "deezerPlaylist", id));
+  //     if (!res.exists()) {
+  //       navigate("/watch");
+  //     }
+  //   };
+  //   checkPlaylist();
+  // }, [id]);
   useEffect(() => {
-    setLoading(false);
+    setLoading(true);
     const unsub = onSnapshot(doc(db, "deezerPlaylist", id), (doc) => {
       setdata(doc.data());
       console.log(doc.data());
-      setLoading(true);
+      setLoading(false);
     });
     return () => {
       unsub();
@@ -45,9 +58,53 @@ const WatchPlaylist = () => {
 
     return `${day}/${month}/${year}`;
   }
+  const totalCount = data?.playListArray?.reduce(
+    (sum, item) => sum + item.duration,
+    0
+  );
+  const formatTime = (duartion) => {
+    var sec_num = parseInt(duartion, 10);
+    var hours = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - hours * 3600) / 60);
+    var seconds = sec_num - hours * 3600 - minutes * 60;
 
+    if (hours < 10) {
+      hours = "0" + hours;
+    }
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    }
+    if (hours > 0) {
+      return hours + ":" + minutes + ":" + seconds;
+    } else {
+      return minutes + ":" + seconds;
+    }
+  };
+
+  if (loading) return <LoadingPlaylist />;
   return (
     <div className="playlist_container">
+      <AnimatePresence mode="wait">
+        {openSearchPopUp && (
+          <WatchPlaylistPopUp
+            setOpenSearchPopUp={setOpenSearchPopUp}
+            playlistName={data?.playListName}
+            playlistData={
+              <>
+                {data?.playListArray?.length} tracks{" "}
+                {data?.playListArray?.length > 0 ? (
+                  <>| {formatTime(totalCount)}</>
+                ) : (
+                  <></>
+                )}
+              </>
+            }
+          />
+        )}
+      </AnimatePresence>
       <div className="playlist_container_header">
         <div className="playlist_container_header_img">
           <img src={data?.playListImgLive} alt={data?.playListName} />
@@ -58,7 +115,14 @@ const WatchPlaylist = () => {
             <img src={userImg} alt="user image" />
             <h3>Mode</h3>
           </div>
-          <p>{data?.playListArray?.length} tracks</p>
+          <p>
+            {data?.playListArray?.length} tracks{" "}
+            {data?.playListArray?.length > 0 ? (
+              <>| {formatTime(totalCount)}</>
+            ) : (
+              <></>
+            )}
+          </p>
           <p>Release Date: {formatDate(data?.publishDate?.seconds)}</p>
           <p>{data?.playListDescription}</p>
         </div>
@@ -95,6 +159,7 @@ const WatchPlaylist = () => {
           setPreview={setPreview}
           type="playlist"
           id={id}
+          setOpenSearchPopUp={setOpenSearchPopUp}
         />
       </div>
     </div>
