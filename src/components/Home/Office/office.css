@@ -206,7 +206,7 @@
   font-size: 14px;
   font-weight: 500;
   transition: 150ms ease-in-out;
-  width: 160px;
+  width: 140px;
 }
 .doc_title .asc input:focus {
   border-color: var(--doc-color);

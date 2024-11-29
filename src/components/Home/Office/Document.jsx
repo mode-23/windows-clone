@@ -15,7 +15,13 @@ import {
 import { useNavigate, useParams, Link } from "react-router-dom";
 import file from "../Home_assest/file.png";
 import OfficeLoader from "./OfficeLoader";
-import { BsCloudCheck, BsDash, BsStar, BsStarFill } from "react-icons/bs";
+import {
+  BsCloudCheck,
+  BsDash,
+  BsDownload,
+  BsStar,
+  BsStarFill,
+} from "react-icons/bs";
 import { VscPrimitiveSquare } from "react-icons/vsc";
 import {
   IoCloseSharp,
@@ -170,6 +176,18 @@ const Document = ({ user }) => {
       });
     }
   }
+  const downloadContent = () => {
+    const plainText = editorState.getCurrentContent().getPlainText();
+    const blob = new Blob([plainText], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = data?.file_name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
   return (
     <div className={handleTabSize()}>
       <div className="tab_title office_tab_title">
@@ -246,8 +264,8 @@ const Document = ({ user }) => {
               </div>
             </div>
             <div className="doc_left">
-              <button>
-                <AiOutlinePlus />
+              <button onClick={downloadContent}>
+                <BsDownload />
               </button>
               <button onClick={() => setReadOnly(() => !isReadOnly)}>
                 {isReadOnly ? (
@@ -261,6 +279,7 @@ const Document = ({ user }) => {
           <div className="document_body_content">
             <Summary />
             <Editor
+              placeholder="Type something here..."
               editorState={editorState}
               toolbarClassName="toolbarClassName"
               wrapperClassName="wrapperClassName"

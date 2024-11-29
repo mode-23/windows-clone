@@ -6,6 +6,7 @@ import { userContext } from "../../Context/UserContext";
 import { db } from "../../firebase/Firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import BannerLoading from "./BannerLoading";
+import { GoHeart } from "react-icons/go";
 const Album = () => {
   const navigate = useNavigate();
   const { user } = useContext(userContext);
@@ -29,11 +30,11 @@ const Album = () => {
     const secs = duartion % 60;
 
     if (hours > 0) {
-      return `${hours} hr${hours > 1 ? "s" : ""} ${
+      return `${hours}h${hours > 1 ? "s" : ""} ${
         minutes > 9 ? minutes : "0" + minutes
-      } minute${minutes > 1 ? "s" : ""}`;
+      } min${minutes > 1 ? "s" : ""}`;
     } else if (minutes > 0) {
-      return `${minutes > 9 ? minutes : "0" + minutes} minute${
+      return `${minutes > 9 ? minutes : "0" + minutes}min${
         minutes > 1 ? "s" : ""
       }`;
     } else {
@@ -84,7 +85,12 @@ const Album = () => {
               </div>
             </span>
             <div className="df">
-              <p>{data?.nb_tracks} tracks</p>
+              <p>
+                {new Date(data?.release_date).getFullYear()} - {data?.nb_tracks}{" "}
+                tracks, {formatTime(data?.duration)}
+              </p>
+
+              {/* <p>{data?.nb_tracks} tracks</p>
               <p>|</p>
               <p>{formatTime(data?.duration)}</p>
               <p>|</p>
@@ -95,7 +101,13 @@ const Album = () => {
                   maximumSignificantDigits: 3,
                 }).format(data?.fans)}{" "}
                 fans
-              </p>
+              </p> */}
+            </div>
+            <div className="artist_buttons df">
+              <button className="playBtn">play</button>
+              <button className="heartBtn">
+                <GoHeart />
+              </button>
             </div>
           </div>
         </div>

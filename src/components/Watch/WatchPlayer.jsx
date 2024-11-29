@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   BsFillSkipEndFill,
   BsFillSkipStartFill,
@@ -7,29 +7,49 @@ import {
   BsPlayFill,
   BsPauseFill,
 } from "react-icons/bs";
-import { PiShuffleAngular } from "react-icons/pi";
+import {
+  PiPictureInPicture,
+  PiPictureInPictureFill,
+  PiShuffleAngular,
+} from "react-icons/pi";
 import { SlLoop } from "react-icons/sl";
 import { FaVolumeHigh, FaVolumeLow, FaVolumeXmark } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { PiArrowsOutSimpleFill } from "react-icons/pi";
 import WatchFullScreen from "./WatchFullScreen";
+import { userContext } from "../../Context/UserContext";
 
 const WatchPlayer = ({ preview }) => {
+  // const {
+  //   isFullscreen,
+  //   setIsFullscreen,
+  //   play,
+  //   setPlay,
+  //   duration,
+  //   setDuration,
+  //   timelinePosition,
+  //   setTimelinePosition,
+  //   volumeLvl,
+  //   setVolumeLvl,
+  //   isLoop,
+  //   setIsLoop,
+  //   handlePictureInPicture,
+  //   VDPvideo,
+  // } = useContext(userContext);
+
   const navigate = useNavigate();
+  const InputRange = useRef();
+  const divRef = useRef(null);
+  const VDPvideo = useRef();
+
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [play, setPlay] = useState("pause");
   const [duration, setDuration] = useState("0:00");
-  const [percent, setPercent] = useState(0);
   const [timelinePosition, setTimelinePosition] = useState(0);
+  const [timelineHoverPosition, setTimelineHoverPosition] = useState(0);
   const [volumeLvl, setVolumeLvl] = useState("high");
   const [isLoop, setIsLoop] = useState(false);
-
-  console.log(preview);
-  const VDPvideo = useRef();
-  const InputRange = useRef();
-
-  const divRef = useRef(null);
   const openFullscreen = () => {
     if (divRef.current) {
       if (divRef.current.requestFullscreen) {
@@ -47,10 +67,8 @@ const WatchPlayer = ({ preview }) => {
     if (document.exitFullscreen) {
       document.exitFullscreen();
     } else if (document.webkitExitFullscreen) {
-      // Safari
       document.webkitExitFullscreen();
     } else if (document.msExitFullscreen) {
-      // IE11
       document.msExitFullscreen();
     }
   };
@@ -119,13 +137,19 @@ const WatchPlayer = ({ preview }) => {
   };
   const timeLineMovement = (e) => {
     const rect = e.target.getBoundingClientRect();
-    setPercent(
-      Math.min(Math.max(0, e.screenX - rect.x), rect.width) / rect.width
-    );
-    console.log(
-      Math.min(Math.max(0, e.screenX - rect.x), rect.width) / rect.width
-    );
+    const percent =
+      Math.min(Math.max(0, e.screenX - rect.x), rect.width) / rect.width;
+    setTimelineHoverPosition(percent);
   };
+  const handleSetTime = (e) => {
+    const rect = e.target.getBoundingClientRect();
+    const percent =
+      Math.min(Math.max(0, e.screenX - rect.x), rect.width) / rect.width;
+    if (VDPvideo.current) {
+      VDPvideo.current.currentTime = percent * VDPvideo.current.duration;
+    }
+  };
+
   const VolumeHandler = () => {
     InputRange.current.value = VDPvideo.current.volume;
     if (VDPvideo.current.muted || VDPvideo.current.volume == 0) {
@@ -141,6 +165,20 @@ const WatchPlayer = ({ preview }) => {
     VDPvideo.current.volume = e.target.value;
     VDPvideo.current.muted = e.target.value == 0;
   };
+  const [bufferInfo, setBufferInfo] = useState(null);
+
+  const handleProgress = () => {
+    if (VDPvideo.current) {
+      const buffered = VDPvideo.current.buffered;
+      if (buffered.length > 0) {
+        const bufferedEnd = buffered.end(buffered.length - 1);
+        setBufferInfo(+bufferedEnd.toFixed(2));
+      } else {
+        setBufferInfo(null);
+      }
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -190,7 +228,25 @@ const WatchPlayer = ({ preview }) => {
         </div>
         <div className="input_player">
           <span>{duration}</span>
-          <div className="input_slider">
+          <div
+            className="input_slider"
+            onMouseMove={timeLineMovement}
+            onMouseDown={handleSetTime}
+            onMouseLeave={() => setTimelineHoverPosition(0)}
+          >
+            <div
+              className="input_slider_hover"
+              style={{ right: `calc(100% - ${timelineHoverPosition} * 100%)` }}
+            ></div>
+            <div
+              className="input_slider_buffer"
+              style={{
+                width: `calc(${(
+                  (bufferInfo / VDPvideo?.current?.duration) *
+                  100
+                ).toFixed(2)}%)`,
+              }}
+            ></div>
             <div
               className="input_slider_progress"
               style={{ right: `calc(100% - ${timelinePosition} * 100%)` }}
@@ -213,6 +269,7 @@ const WatchPlayer = ({ preview }) => {
             onLoadedData={LoadedVideo}
             onTimeUpdate={TimeUpdateHandler}
             onVolumeChange={VolumeHandler}
+            onProgress={handleProgress} // Fires when the video is buffering
             controls
             src={preview.preview}
             loop={isLoop}
@@ -222,11 +279,14 @@ const WatchPlayer = ({ preview }) => {
           isFullscreen={isFullscreen}
           divRef={divRef}
           preview={preview}
+          toggleFullscreen={toggleFullscreen}
         />
         <div className="df">
+          <button>
+            <PiPictureInPictureFill />
+          </button>
           <button onClick={toggleFullscreen}>
             <PiArrowsOutSimpleFill />
-            {/* {isFullscreen ? "Exit Fullscreen" : "Go Fullscreen"} */}
           </button>
           <div className="df">
             <button onClick={VideoSound}>

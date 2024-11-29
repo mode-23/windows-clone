@@ -15,7 +15,6 @@ const TrackBox = ({ item, setPreview, openPopUp, setOpenPopUp, id }) => {
   const { user } = useContext(userContext);
   const [data, setData] = useState([]);
   const { setCreatePlaylist } = useOutletContext();
-  console.log(item);
 
   useEffect(() => {
     const refrence = collection(db, "deezerPlaylist");
@@ -90,8 +89,10 @@ const TrackBox = ({ item, setPreview, openPopUp, setOpenPopUp, id }) => {
   useEffect(() => {
     let clickOutside = (e) => {
       if (windBtnRef.current.contains(e.target)) return;
-      if (!menuRef.current.contains(e.target)) {
-        setOpenPopUp("");
+      if (!id) {
+        if (!menuRef.current.contains(e.target)) {
+          setOpenPopUp("");
+        }
       }
     };
     document.addEventListener("click", clickOutside);

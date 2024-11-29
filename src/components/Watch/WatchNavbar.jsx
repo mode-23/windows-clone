@@ -7,7 +7,13 @@ import { BsPlusLg } from "react-icons/bs";
 import { userContext } from "../../Context/UserContext";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../firebase/Firebase";
-import { IoGrid, IoHeadsetSharp, IoHeartSharp, IoTime } from "react-icons/io5";
+import {
+  IoGrid,
+  IoHeadsetSharp,
+  IoHeartSharp,
+  IoTime,
+  IoCopySharp,
+} from "react-icons/io5";
 
 const WatchNavbar = ({ setCreatePlaylist }) => {
   const { user } = useContext(userContext);
@@ -54,6 +60,11 @@ const WatchNavbar = ({ setCreatePlaylist }) => {
             </NavLink>
           </li>
           <li>
+            <NavLink to={"/watch/favorites"} className={"df"} end>
+              <IoCopySharp /> Highlights
+            </NavLink>
+          </li>
+          <li>
             <NavLink to={"/watch/browse"} className={"df"} end>
               <MdExplore /> Browse{" "}
             </NavLink>
@@ -66,12 +77,32 @@ const WatchNavbar = ({ setCreatePlaylist }) => {
         </ul>
         <h4>your library</h4>
         <ul className="drop_nav_2">
-          {/* <li>
-            <NavLink to={"/foryou"} className={"df"}>
-              <IoGrid /> Made for you
-            </NavLink>
-          </li> */}
           <li>
+            <NavLink to={"/watch/favorites/tracks"} className={"df"}>
+              Liked tracks
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/watch/favorites/albums"} className={"df"}>
+              Your Albums
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/watch/favorites/artists"} className={"df"}>
+              Your Artists
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/watch/favorites/playlists"} className={"df"}>
+              Your Playlists
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/watch/favorites/genres"} className={"df"}>
+              Your Genres
+            </NavLink>
+          </li>
+          {/* <li>
             <NavLink
               to={`/watch/favorites`}
               className={({ isActive }) =>
@@ -100,7 +131,7 @@ const WatchNavbar = ({ setCreatePlaylist }) => {
                 <h5>Searches</h5>
               </div>
             </NavLink>
-          </li>
+          </li> */}
           {/* <li>
             <NavLink to={"/watch/recent_searches"} className={"df"}>
               <IoTime /> Recent searchs
@@ -131,9 +162,7 @@ const WatchNavbar = ({ setCreatePlaylist }) => {
             className="create_playlist create_playlist_cr df"
             onClick={() => setCreatePlaylist(true)}
           >
-            <div className="pl_Icon pl_Icon_cr">
-              <BsPlusLg />
-            </div>
+            <BsPlusLg />
             <p>Create a playlist</p>
           </button>
           {data?.length > 0 && (
